@@ -24,11 +24,93 @@ const Form: FC = () => {
         <div className={styles.inputWrapper}>
           <div>
             <input
+              className="nombres"
+              type="text"
+              id="firstName"
+              placeholder="Primer nombre"
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+            <input
+              type="text"
+              id="secondName"
+              className="nombres"
+              placeholder="Segundo Nombre"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name=""
+              id="lastName"
+              className="form__input"
+              placeholder="Apellidos"
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+            <input
               type="email"
-              aria-label="Email"
+              id="Email"
+              className="form__input"
               placeholder="email@example.com"
               onChange={({ target: { value } }) => setEmail(value)}
               value={email}
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+          </div>
+          <div>
+            <input
+              className="form__input"
+              type="number"
+              id="estatura"
+              placeholder="Estatura (metros)"
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+            <input
+              className="form__input"
+              type="text"
+              id="posicion"
+              placeholder="Posición"
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+          </div>
+          <div>
+            <input
+              className="form__input"
+              type="text"
+              id="clubActual"
+              placeholder="Club actual"
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+            <input
+              className="form__input"
+              type="text"
+              id="nacionalidad"
+              placeholder="Nacionalidad"
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+          </div>
+          <div>
+            <input
+              className="form__input"
+              type="text"
+              id="cedula"
+              placeholder="Cdedula / Pasaporte"
+              maxLength={11}
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+            <input
+              className="form__input"
+              type="number"
+              id="telefono"
+              placeholder="Número de teléfono"
+            />
+            {error ? <p className={styles.error}>{error}</p> : null}
+          </div>
+          <div className={styles.direcion}>
+            <input
+              className={styles.direcionput}
+              type="text"
+              id="direcion"
+              placeholder="Dirección"
             />
             {error ? <p className={styles.error}>{error}</p> : null}
           </div>
