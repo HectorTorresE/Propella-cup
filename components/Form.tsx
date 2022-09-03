@@ -1,17 +1,46 @@
 import { FC, FormEvent, useState } from "react";
 import styles from "@styles/Form.module.scss";
+import axios from "axios";
 
 const Form: FC = () => {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const [primer_nombre, setPrimerNombre] = useState("");
+  const [segundo_nombre, setSegundoNombre] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [estatura, setEstatura] = useState("");
+  const [club, setClub] = useState("");
+  const [posicion, setPosicion] = useState("");
+  const [nacionalidad, setNacionalidad] = useState("");
+  const [documento, setDocumento] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [direccion, SetDireccion] = useState("");
+  const [message, setMessage] = useState("");
+  const API_URL = "http://localhost:3001/players";
+
+  function sendData() {
+    axios.post(API_URL, {
+      primer_nombre: primer_nombre,
+      segundo_nombre: segundo_nombre,
+      apellidos: apellidos,
+      email: email,
+      estatura: estatura,
+      posicion: posicion,
+      club: club,
+      nacionalidad: nacionalidad,
+      documento: documento,
+      telefono: telefono,
+      direccion: direccion,
+    })
+    .then(function (response) {
+      setMessage("Formulario enviado correctamente");
+    })
+    .catch(function (error) {
+      setMessage(error);
+    });
+  }
+  let handleSubmit = async (e) => {
     e.preventDefault();
-    if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address");
-      return;
-    }
-    setError("");
-    setEmail("");
+    sendData(); 
   }
 
   return (
@@ -28,13 +57,16 @@ const Form: FC = () => {
               type="text"
               id="firstName"
               placeholder="Primer nombre"
+              value={primer_nombre}
+              onChange={(e) => setPrimerNombre(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
             <input
               type="text"
               id="secondName"
               className="nombres"
               placeholder="Segundo Nombre"
+              value={segundo_nombre}
+              onChange={(e) => setSegundoNombre(e.target.value)}
             />
           </div>
           <div>
@@ -44,17 +76,17 @@ const Form: FC = () => {
               id="lastName"
               className="form__input"
               placeholder="Apellidos"
+              value={apellidos}
+              onChange={(e) => setApellidos(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
             <input
               type="email"
               id="Email"
               className="form__input"
               placeholder="email@example.com"
-              onChange={({ target: { value } }) => setEmail(value)}
               value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
           </div>
           <div>
             <input
@@ -62,15 +94,17 @@ const Form: FC = () => {
               type="number"
               id="estatura"
               placeholder="Estatura (metros)"
+              value={estatura}
+              onChange={(e) => setEstatura(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
             <input
               className="form__input"
               type="text"
               id="posicion"
               placeholder="Posición"
+              value={posicion}
+              onChange={(e) => setPosicion(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
           </div>
           <div>
             <input
@@ -78,15 +112,17 @@ const Form: FC = () => {
               type="text"
               id="clubActual"
               placeholder="Club actual"
+              value={club}
+              onChange={(e) => setClub(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
             <input
               className="form__input"
               type="text"
               id="nacionalidad"
               placeholder="Nacionalidad"
+              value={nacionalidad}
+              onChange={(e) => setNacionalidad(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
           </div>
           <div>
             <input
@@ -95,15 +131,17 @@ const Form: FC = () => {
               id="cedula"
               placeholder="Cdedula / Pasaporte"
               maxLength={11}
+              value={documento}
+              onChange={(e) => setDocumento(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
             <input
               className="form__input"
               type="number"
               id="telefono"
               placeholder="Número de teléfono"
+              value={telefono}
+              onChange={(e) => setTelefono(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
           </div>
           <div className={styles.direcion}>
             <input
@@ -111,10 +149,12 @@ const Form: FC = () => {
               type="text"
               id="direcion"
               placeholder="Dirección"
+              value={direccion}
+              onChange={(e) => SetDireccion(e.target.value)}
             />
-            {error ? <p className={styles.error}>{error}</p> : null}
           </div>
           <button type="submit">Enviar</button>
+          <div className={styles.error}>{message ? <p>{message}</p> : null}</div>
         </div>
       </form>
     </section>
@@ -122,7 +162,3 @@ const Form: FC = () => {
 };
 
 export default Form;
-
-const emailRegex = new RegExp(
-  /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-);

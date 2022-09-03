@@ -81,9 +81,10 @@
 }
 
 .error {
-  color: $error;
+  color: green;
   font-size: 0.875rem;
   font-weight: $bold;
   width: max-content;
   padding-left: 20px;
+  align-self: center;
 }
